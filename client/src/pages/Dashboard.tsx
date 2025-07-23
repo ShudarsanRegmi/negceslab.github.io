@@ -23,7 +23,7 @@ import {
   DialogActions,
   Divider,
 } from "@mui/material";
-import Grid from '@mui/material/Grid';
+import Grid from "@mui/material/Grid";
 import {
   Computer as ComputerIcon,
   BookOnline as BookingIcon,
@@ -41,7 +41,6 @@ import {
 import { format } from "date-fns";
 import { bookingsAPI, computersAPI } from "../services/api";
 import { useAuth } from "../contexts/AuthContext";
-
 
 interface Booking {
   _id: string;
@@ -82,7 +81,8 @@ const Dashboard: React.FC = () => {
   const [selectedBookingId, setSelectedBookingId] = useState<string | null>(
     null
   );
-  const [selectedBookingDetails, setSelectedBookingDetails] = useState<Booking | null>(null);
+  const [selectedBookingDetails, setSelectedBookingDetails] =
+    useState<Booking | null>(null);
   const [detailsDialogOpen, setDetailsDialogOpen] = useState(false);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
@@ -227,9 +227,17 @@ const Dashboard: React.FC = () => {
       </Typography>
 
       {/* Summary Cards */}
-      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 3, mb: 3 }}>
+      <Box sx={{ display: "flex", flexWrap: "wrap", gap: 3, mb: 3 }}>
         {/* Total Computers */}
-        <Box sx={{ flex: { xs: '1 1 100%', sm: '1 1 calc(50% - 12px)', md: '1 1 calc(25% - 18px)' } }}>
+        <Box
+          sx={{
+            flex: {
+              xs: "1 1 100%",
+              sm: "1 1 calc(50% - 12px)",
+              md: "1 1 calc(25% - 18px)",
+            },
+          }}
+        >
           <Card
             sx={{
               height: "100%",
@@ -308,7 +316,15 @@ const Dashboard: React.FC = () => {
         </Box>
 
         {/* Active Bookings */}
-        <Box sx={{ flex: { xs: '1 1 100%', sm: '1 1 calc(50% - 12px)', md: '1 1 calc(25% - 18px)' } }}>
+        <Box
+          sx={{
+            flex: {
+              xs: "1 1 100%",
+              sm: "1 1 calc(50% - 12px)",
+              md: "1 1 calc(25% - 18px)",
+            },
+          }}
+        >
           <Card
             sx={{
               height: "100%",
@@ -387,7 +403,15 @@ const Dashboard: React.FC = () => {
         </Box>
 
         {/* Users Online */}
-        <Box sx={{ flex: { xs: '1 1 100%', sm: '1 1 calc(50% - 12px)', md: '1 1 calc(25% - 18px)' } }}>
+        <Box
+          sx={{
+            flex: {
+              xs: "1 1 100%",
+              sm: "1 1 calc(50% - 12px)",
+              md: "1 1 calc(25% - 18px)",
+            },
+          }}
+        >
           <Card
             sx={{
               height: "100%",
@@ -466,7 +490,15 @@ const Dashboard: React.FC = () => {
         </Box>
 
         {/* Lab Utilization */}
-        <Box sx={{ flex: { xs: '1 1 100%', sm: '1 1 calc(50% - 12px)', md: '1 1 calc(25% - 18px)' } }}>
+        <Box
+          sx={{
+            flex: {
+              xs: "1 1 100%",
+              sm: "1 1 calc(50% - 12px)",
+              md: "1 1 calc(25% - 18px)",
+            },
+          }}
+        >
           <Card
             sx={{
               height: "100%",
@@ -548,7 +580,7 @@ const Dashboard: React.FC = () => {
       {/* Content Grid */}
       <Box>
         {/* Recent Bookings - Only show for non-admin users */}
-        {userRole !== 'admin' && (
+        {userRole !== "admin" && (
           <Card>
             <CardContent>
               <Typography variant="h6" gutterBottom>
@@ -581,10 +613,10 @@ const Dashboard: React.FC = () => {
                           key={booking._id}
                           onClick={() => handleRowClick(booking)}
                           sx={{
-                            cursor: 'pointer',
-                            '&:hover': {
-                              backgroundColor: 'action.hover',
-                            }
+                            cursor: "pointer",
+                            "&:hover": {
+                              backgroundColor: "action.hover",
+                            },
                           }}
                         >
                           <TableCell>
@@ -610,9 +642,15 @@ const Dashboard: React.FC = () => {
                             <Typography variant="body2">
                               {isNaN(new Date(booking.startDate).getTime())
                                 ? "Invalid date"
-                                : format(new Date(booking.startDate), "yyyy-MM-dd")}
+                                : format(
+                                    new Date(booking.startDate),
+                                    "yyyy-MM-dd"
+                                  )}
                             </Typography>
-                            <Typography variant="caption" color="text.secondary">
+                            <Typography
+                              variant="caption"
+                              color="text.secondary"
+                            >
                               {booking.startTime}
                             </Typography>
                           </TableCell>
@@ -620,9 +658,15 @@ const Dashboard: React.FC = () => {
                             <Typography variant="body2">
                               {isNaN(new Date(booking.endDate).getTime())
                                 ? "Invalid date"
-                                : format(new Date(booking.endDate), "yyyy-MM-dd")}
+                                : format(
+                                    new Date(booking.endDate),
+                                    "yyyy-MM-dd"
+                                  )}
                             </Typography>
-                            <Typography variant="caption" color="text.secondary">
+                            <Typography
+                              variant="caption"
+                              color="text.secondary"
+                            >
                               {booking.endTime}
                             </Typography>
                           </TableCell>
@@ -637,7 +681,10 @@ const Dashboard: React.FC = () => {
                             <Typography variant="body2">
                               {isNaN(new Date(booking.createdAt).getTime())
                                 ? "Invalid date"
-                                : format(new Date(booking.createdAt), "yyyy-MM-dd HH:mm:ss")}
+                                : format(
+                                    new Date(booking.createdAt),
+                                    "yyyy-MM-dd HH:mm:ss"
+                                  )}
                             </Typography>
                           </TableCell>
                           <TableCell>
@@ -676,7 +723,7 @@ const Dashboard: React.FC = () => {
           Booking Details
           <Chip
             label={selectedBookingDetails?.status}
-            color={getStatusColor(selectedBookingDetails?.status || '') as any}
+            color={getStatusColor(selectedBookingDetails?.status || "") as any}
             size="small"
             sx={{ ml: 1 }}
           />
@@ -690,14 +737,17 @@ const Dashboard: React.FC = () => {
               </Typography>
               <Box sx={{ mb: 2 }}>
                 <Typography variant="body1">
-                  <strong>Name:</strong> {selectedBookingDetails.computerId.name}
+                  <strong>Name:</strong>{" "}
+                  {selectedBookingDetails.computerId.name}
                 </Typography>
                 <Typography variant="body1">
-                  <strong>Location:</strong> {selectedBookingDetails.computerId.location}
+                  <strong>Location:</strong>{" "}
+                  {selectedBookingDetails.computerId.location}
                 </Typography>
                 {selectedBookingDetails.computerId.specifications && (
                   <Typography variant="body1">
-                    <strong>Specifications:</strong> {selectedBookingDetails.computerId.specifications}
+                    <strong>Specifications:</strong>{" "}
+                    {selectedBookingDetails.computerId.specifications}
                   </Typography>
                 )}
               </Box>
@@ -710,13 +760,22 @@ const Dashboard: React.FC = () => {
               </Typography>
               <Box sx={{ mb: 2 }}>
                 <Typography variant="body1">
-                  <strong>Start Date:</strong> {format(new Date(selectedBookingDetails.startDate), "MMMM d, yyyy")}
+                  <strong>Start Date:</strong>{" "}
+                  {format(
+                    new Date(selectedBookingDetails.startDate),
+                    "MMMM d, yyyy"
+                  )}
                 </Typography>
                 <Typography variant="body1">
-                  <strong>End Date:</strong> {format(new Date(selectedBookingDetails.endDate), "MMMM d, yyyy")}
+                  <strong>End Date:</strong>{" "}
+                  {format(
+                    new Date(selectedBookingDetails.endDate),
+                    "MMMM d, yyyy"
+                  )}
                 </Typography>
                 <Typography variant="body1">
-                  <strong>Time:</strong> {selectedBookingDetails.startTime} - {selectedBookingDetails.endTime}
+                  <strong>Time:</strong> {selectedBookingDetails.startTime} -{" "}
+                  {selectedBookingDetails.endTime}
                 </Typography>
                 <Typography variant="body1">
                   <strong>Purpose:</strong> {selectedBookingDetails.reason}
@@ -731,30 +790,32 @@ const Dashboard: React.FC = () => {
                   />
                 </Typography>
                 <Typography variant="body1">
-                  <strong>Created:</strong> {new Date(selectedBookingDetails.createdAt).toLocaleString()}
+                  <strong>Created:</strong>{" "}
+                  {new Date(selectedBookingDetails.createdAt).toLocaleString()}
                 </Typography>
               </Box>
 
               {/* Show rejection reason if booking was rejected */}
-              {selectedBookingDetails.status === 'rejected' && selectedBookingDetails.rejectionReason && (
-                <>
-                  <Divider sx={{ my: 2 }} />
-                  <Box sx={{ mb: 2 }}>
-                    <Typography variant="h6" gutterBottom color="error">
-                      Rejection Reason
-                    </Typography>
-                    <Alert severity="error" sx={{ mt: 1 }}>
-                      {selectedBookingDetails.rejectionReason}
-                    </Alert>
-                  </Box>
-                </>
-              )}
+              {selectedBookingDetails.status === "rejected" &&
+                selectedBookingDetails.rejectionReason && (
+                  <>
+                    <Divider sx={{ my: 2 }} />
+                    <Box sx={{ mb: 2 }}>
+                      <Typography variant="h6" gutterBottom color="error">
+                        Rejection Reason
+                      </Typography>
+                      <Alert severity="error" sx={{ mt: 1 }}>
+                        {selectedBookingDetails.rejectionReason}
+                      </Alert>
+                    </Box>
+                  </>
+                )}
             </Box>
           )}
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseDetails}>Close</Button>
-          {selectedBookingDetails?.status === 'pending' && (
+          {selectedBookingDetails?.status === "pending" && (
             <Button
               color="error"
               onClick={() => {

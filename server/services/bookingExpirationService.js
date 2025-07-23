@@ -20,28 +20,28 @@ class BookingExpirationService {
 
   async checkExpiredBookings() {
     try {
-      const currentDate = new Date().toISOString().split('T')[0];
-      const currentTime = new Date().toLocaleTimeString('en-US', { 
-        hour12: false, 
-        hour: '2-digit', 
-        minute: '2-digit'
+      const currentDate = new Date().toISOString().split("T")[0];
+      const currentTime = new Date().toLocaleTimeString("en-US", {
+        hour12: false,
+        hour: "2-digit",
+        minute: "2-digit",
       });
 
       // Find bookings that have ended
       const expiredBookings = await Booking.find({
-        status: 'approved',
+        status: "approved",
         $or: [
           // Single day bookings that have ended
           {
             startDate: currentDate,
             endDate: currentDate,
-            endTime: { $lt: currentTime }
+            endTime: { $lt: currentTime },
           },
           // Multi-day bookings that have ended
           {
-            endDate: { $lt: currentDate }
-          }
-        ]
+            endDate: { $lt: currentDate },
+          },
+        ],
       });
 
       // Update status to completed for expired bookings
@@ -51,7 +51,7 @@ class BookingExpirationService {
 
       console.log(`Updated ${expiredBookings.length} expired bookings`);
     } catch (error) {
-      console.error('Error in booking expiration service:', error);
+      console.error("Error in booking expiration service:", error);
     }
   }
 
@@ -66,9 +66,13 @@ class BookingExpirationService {
       if (computer && computer.status === "booked") {
         computer.status = "available";
         await computer.save();
-        console.log(`Computer ${computer.name} (${computer._id}) status updated to: ${computer.status}`);
+        console.log(
+          `Computer ${computer.name} (${computer._id}) status updated to: ${computer.status}`
+        );
       } else if (computer) {
-        console.log(`Computer ${computer.name} (${computer._id}) was not booked, current status: ${computer.status}`);
+        console.log(
+          `Computer ${computer.name} (${computer._id}) was not booked, current status: ${computer.status}`
+        );
       } else {
         console.log(`Computer with ID ${booking.computerId} not found.`);
       }
@@ -84,7 +88,7 @@ class BookingExpirationService {
 
   async sendExpirationNotifications(booking, computer) {
     try {
-      const computerName = computer ? computer.name : 'Unknown Computer';
+      const computerName = computer ? computer.name : "Unknown Computer";
       const computerId = computer ? computer._id : booking.computerId;
       const userBookingId = booking._id.toString().slice(-6).toUpperCase();
       // Notification for user

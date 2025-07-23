@@ -50,14 +50,14 @@ const authRoutes = require("./routes/auth");
 const computerRoutes = require("./routes/computers");
 const bookingRoutes = require("./routes/bookings");
 const notificationRoutes = require("./routes/notifications");
-const feedbackRoutes = require('./routes/feedback');
+const feedbackRoutes = require("./routes/feedback");
 
 // Use routes
 app.use("/api/auth", authRoutes);
 app.use("/api/computers", computerRoutes);
 app.use("/api/bookings", bookingRoutes);
 app.use("/api/notifications", notificationRoutes);
-app.use('/api/feedback', feedbackRoutes);
+app.use("/api/feedback", feedbackRoutes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {

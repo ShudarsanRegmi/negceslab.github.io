@@ -396,28 +396,32 @@ const BookingForm: React.FC = (): ReactElement => {
                   Booking Duration:
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  {
-                    (() => {
-                      // Combine date and time for accurate calculation
-                      const getDateTime = (date: Date, time: Date) => {
-                        const d = new Date(date);
-                        d.setHours(time.getHours(), time.getMinutes(), 0, 0);
-                        return d;
-                      };
-                      const startDateTime = getDateTime(startDate, startTime);
-                      const endDateTime = getDateTime(endDate, endTime);
-                      const totalMinutes = Math.max(0, Math.floor((endDateTime.getTime() - startDateTime.getTime()) / 60000));
-                      const days = Math.floor(totalMinutes / (60 * 24));
-                      const hours = Math.floor((totalMinutes % (60 * 24)) / 60);
-                      const minutes = totalMinutes % 60;
-                      let result = '';
-                      if (days > 0) result += `${days} day(s) `;
-                      if (hours > 0) result += `${hours} hour(s) `;
-                      if (minutes > 0) result += `${minutes} minute(s)`;
-                      if (!result) result = '0 minutes';
-                      return result.trim();
-                    })()
-                  }
+                  {(() => {
+                    // Combine date and time for accurate calculation
+                    const getDateTime = (date: Date, time: Date) => {
+                      const d = new Date(date);
+                      d.setHours(time.getHours(), time.getMinutes(), 0, 0);
+                      return d;
+                    };
+                    const startDateTime = getDateTime(startDate, startTime);
+                    const endDateTime = getDateTime(endDate, endTime);
+                    const totalMinutes = Math.max(
+                      0,
+                      Math.floor(
+                        (endDateTime.getTime() - startDateTime.getTime()) /
+                          60000
+                      )
+                    );
+                    const days = Math.floor(totalMinutes / (60 * 24));
+                    const hours = Math.floor((totalMinutes % (60 * 24)) / 60);
+                    const minutes = totalMinutes % 60;
+                    let result = "";
+                    if (days > 0) result += `${days} day(s) `;
+                    if (hours > 0) result += `${hours} hour(s) `;
+                    if (minutes > 0) result += `${minutes} minute(s)`;
+                    if (!result) result = "0 minutes";
+                    return result.trim();
+                  })()}
                 </Typography>
                 {differenceInDays(endDate, startDate) + 1 > 7 && (
                   <Typography variant="body2" color="error" sx={{ mt: 1 }}>
